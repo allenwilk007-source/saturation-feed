@@ -121,7 +121,7 @@
             <span>Third-party services your video is sent through</span>
           </div>
           <div class="fact">
-            <b>561</b>
+            <b>571</b>
             <span>Tests that run before anything ships</span>
           </div>
         </div>
@@ -397,6 +397,68 @@
                 real layout. No streamer footage and nobody's face.
               </p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="dashboard">
+        <div class="shell">
+          <div class="block">
+            <h2>What you are looking at, before you download it</h2>
+            <p class="tour-lede">
+              Three panels from a real run &mdash; not a mock-up and not a
+              design. The tool took these of itself, against its own database,
+              with the chat sockets open. On a phone they are too small to
+              read: open any of them for the full-size picture.
+            </p>
+            <figure class="tour-shot">
+              <a class="tour-zoom" href="shots/moments.png">
+                <img
+                  src="shots/moments.png"
+                  alt="A list of live Twitch channels whose chat has just reacted, each with the reason and buttons to open or clip the moment."
+                  width="1240"
+                  height="590"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </a>
+              <figcaption>
+                <h3>It finds the moment while the stream is still running</h3>
+                <p>Minutes after starting, with no Twitch key in the file yet. It is reading chat on the channels you picked and listing the ones that just went off, with what it heard: laughing, shock, hype, how much of the chat was copypasta. Every row says <em>chat only</em>, because without an API key it cannot know how many other people have already clipped that moment, and a number it does not have is not a number it shows.</p>
+              </figcaption>
+            </figure>
+            <figure class="tour-shot">
+              <a class="tour-zoom" href="shots/automation.png">
+                <img
+                  src="shots/automation.png"
+                  alt="The channel automation panel: two Twitch categories on the left, twenty-seven channel chips on the right, and an On switch."
+                  width="1240"
+                  height="628"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </a>
+              <figcaption>
+                <h3>You choose what it watches, and nothing else</h3>
+                <p>Categories on the left, channels on the right. Every live channel inside those categories is watched, and each chip carries what that one is doing right now - listening, recording, or not live. Adding a channel is a name in a box. Nothing is posted for you from this panel; it only decides what gets cut.</p>
+              </figcaption>
+            </figure>
+            <figure class="tour-shot">
+              <a class="tour-zoom" href="shots/uploads.png">
+                <img
+                  src="shots/uploads.png"
+                  alt="Three upload cards for YouTube, TikTok and Instagram, each with a mode, a per-day number and a minutes-apart number."
+                  width="1240"
+                  height="300"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </a>
+              <figcaption>
+                <h3>And it will not post more than you let it</h3>
+                <p>One card per account: off, dry run or on, how many a day, and how far apart. The per-day box stops at what the platform itself allows - six for YouTube, because its daily quota buys six uploads - and says so rather than letting you set a number that would spend an upload on a refusal. These three say <em>no keys yet</em> because the machine that took the picture has none; connecting an account is step three.</p>
+              </figcaption>
+            </figure>
           </div>
         </div>
       </section>
