@@ -1,0 +1,482 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Saturation Feed — clip the stream while it is still live</title>
+    <meta
+      name="description"
+      content="Saturation Feed watches the Twitch channels you pick, finds the moments chat reacts to, and posts them as vertical shorts. It runs on your own computer, with your own accounts."
+    />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self' data:; style-src 'self'; media-src 'self'; font-src 'self'; base-uri 'none'; form-action 'none'" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <meta name="color-scheme" content="dark light" />
+    <link rel="icon" href="icon.svg" />
+    <link rel="apple-touch-icon" href="icon.png" />
+    <link rel="stylesheet" href="landing.css" />
+  </head>
+  <body>
+    <header class="nav">
+      <div class="shell">
+        <a class="brand" href="index.html">
+          <img src="icon.svg" alt="" width="20" height="15" />
+          Saturation&nbsp;Feed
+        </a>
+        <nav class="nav-links">
+          <a href="#how">How it works</a>
+          <a href="#what">What it does</a>
+          <a href="#yours">Your machine</a>
+          <a href="#price">Price</a>
+          <a href="#faq">FAQ</a>
+        </nav>
+        <a class="btn" href="#get">Get it</a>
+      </div>
+    </header>
+
+    <main>
+      <div class="hero shell">
+        <span class="flag"><span class="dot"></span> Watching live, not waiting for an upload</span>
+
+        <h1>Clip the stream <em>while it is still live</em></h1>
+
+        <p class="lead">
+          Every other clipper asks you for a video you already have. This one watches the
+          channels you pick, notices the moment chat goes off, and has the vertical short
+          cut, captioned and posted before the stream has ended. You do not have to be
+          at the computer. You do not have to be awake.
+        </p>
+
+        <div class="cta-row">
+          <a class="btn btn-lg" href="#get">Get it</a>
+          <a class="btn btn-ghost btn-lg" href="#how">See how it works</a>
+        </div>
+
+        <p class="fineprint">Runs on your own PC. Your accounts, your API keys, your files.</p>
+
+        <!-- Not a screenshot: the real dashboard shows a real operator's channels and
+             real view counts, and neither belongs on a public page. This is the same
+             layout drawn from nothing. -->
+        <div class="shot">
+          <div class="shot-inner">
+            <div class="shot-bar">
+              <b>Saturation Feed</b>
+              <span>Grand Theft Auto VI</span>
+              <span class="spacer"></span>
+              <span><span class="dot"></span> 198 channels live · 25m window</span>
+            </div>
+            <div class="shot-grid">
+              <div class="moment">
+                <div class="who">a channel you follow</div>
+                <div class="said">chat went from 4 to 61 messages a second</div>
+                <div class="meter"><i class="w88"></i></div>
+                <div class="foot"><span class="tag on">cut</span><span class="tag">posted</span><span class="tag">0:28</span></div>
+              </div>
+              <div class="moment">
+                <div class="who">another one</div>
+                <div class="said">laughter detected, face found and locked</div>
+                <div class="meter"><i class="w71"></i></div>
+                <div class="foot"><span class="tag on">cut</span><span class="tag">rendering</span><span class="tag">0:31</span></div>
+              </div>
+              <div class="moment">
+                <div class="who">a third</div>
+                <div class="said">a line worth quoting, so it became the caption</div>
+                <div class="meter"><i class="w54"></i></div>
+                <div class="foot"><span class="tag">queued</span><span class="tag">0:26</span></div>
+              </div>
+              <div class="moment">
+                <div class="who">a fourth</div>
+                <div class="said">nothing anyone said, so nothing was posted</div>
+                <div class="meter"><i class="w19"></i></div>
+                <div class="foot"><span class="tag">skipped</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="facts">
+          <div class="fact">
+            <b>Live</b>
+            <span>Finds moments as they happen, not from a file you upload</span>
+          </div>
+          <div class="fact">
+            <b>9:16</b>
+            <span>Face found and kept in frame, captions burned in</span>
+          </div>
+          <div class="fact">
+            <b>0</b>
+            <span>Third-party services your video is sent through</span>
+          </div>
+          <div class="fact">
+            <b>553</b>
+            <span>Tests that run before anything ships</span>
+          </div>
+        </div>
+      </div>
+
+      <section id="how" class="tinted">
+        <div class="shell">
+          <div class="head mid">
+            <span class="eyebrow">How it works</span>
+            <h2>Three things to set up, then it runs without you</h2>
+            <p>
+              The point is not a faster editor. The point is that nobody has to open one.
+            </p>
+          </div>
+
+          <div class="steps">
+            <div class="step">
+              <h3>Name the channels</h3>
+              <p>
+                Paste in the streamers you want watched, or let it follow whoever is
+                currently live on a game. It keeps a socket open to each chat and watches
+                how fast people are typing.
+              </p>
+            </div>
+            <div class="step">
+              <h3>It cuts what chat reacted to</h3>
+              <p>
+                A spike in chat is the signal. It pulls the thirty seconds around it,
+                crops to vertical, keeps the face in frame, writes a caption from what was
+                actually said, and scores how promising the moment was.
+              </p>
+            </div>
+            <div class="step">
+              <h3>It posts, inside limits you set</h3>
+              <p>
+                Straight to your own YouTube and TikTok through their official APIs. You
+                set how many a day and how far apart. Every clip credits the streamer and
+                links back to the source.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="what">
+        <div class="shell">
+          <div class="head">
+            <span class="eyebrow">What it does</span>
+            <h2>The whole pipeline, not one step of it</h2>
+            <p>
+              Every piece below is already built. There is no editor to open between them.
+            </p>
+          </div>
+
+          <div class="cards">
+            <div class="card">
+              <div class="ico" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#020617" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              </div>
+              <h3>Chat is the judge</h3>
+              <p>
+                It does not guess what was funny. It watches how many people reacted and
+                how fast, which is the only opinion that has ever predicted anything.
+              </p>
+            </div>
+
+            <div class="card">
+              <div class="ico" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#020617" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="3" width="10" height="18" rx="2"/><circle cx="12" cy="9" r="2.2"/></svg>
+              </div>
+              <h3>Vertical without losing the face</h3>
+              <p>
+                A 16:9 stream cropped to 9:16 usually throws away the person. This finds
+                the face and keeps it in frame for the whole clip.
+              </p>
+            </div>
+
+            <div class="card">
+              <div class="ico" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#020617" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h10M4 18h13"/></svg>
+              </div>
+              <h3>Captions from what was said</h3>
+              <p>
+                The clip is transcribed, subtitles are burned in, and the title quotes a
+                real line — but only when that line actually names something. "What do you
+                think?" is thrown away.
+              </p>
+            </div>
+
+            <div class="card">
+              <div class="ico" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#020617" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+              </div>
+              <h3>Posting on a leash</h3>
+              <p>
+                Caps per day, minimum spacing, and a queue that knows what each platform
+                has already taken. It will refuse to post rather than burn your quota.
+              </p>
+            </div>
+
+            <div class="card">
+              <div class="ico" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#020617" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 14l3.5-4 3 3L21 6"/></svg>
+              </div>
+              <h3>It tells you when it is wrong</h3>
+              <p>
+                One command asks YouTube what every clip it posted actually did, and reports
+                whether its own scoring predicted any of it. When the answer is no, it says
+                no.
+              </p>
+            </div>
+
+            <div class="card">
+              <div class="ico" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#020617" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              </div>
+              <h3>Credit is not optional</h3>
+              <p>
+                Every clip carries the streamer's name and a link back to the stream it came
+                from. That is built in, not a setting you can quietly turn off.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="yours" class="tinted">
+        <div class="shell split">
+          <div class="head">
+            <span class="eyebrow">Your machine</span>
+            <h2>Nothing is uploaded to us, because there is no us</h2>
+            <p>
+              This is not a service with your footage on it. You get a copy, it runs on your
+              computer, and it talks to YouTube and TikTok with credentials you granted
+              yourself. There is no account to make, no server holding your video, and no
+              company that can read your clips, change the terms, or go out of business and
+              take the pipeline with it.
+            </p>
+            <p class="spaced">
+              Raw chat is counted and thrown away rather than stored. Clips live in a folder
+              on your disk, and a sweeper deletes the ones nothing ever used.
+            </p>
+          </div>
+
+          <dl class="ledger">
+            <div><dt>Where your video is processed</dt><dd>Your computer</dd></div>
+            <div><dt>Where clips are stored</dt><dd>Your disk</dd></div>
+            <div><dt>Who holds the API keys</dt><dd>You</dd></div>
+            <div><dt>Account required to use it</dt><dd class="no">None</dd></div>
+            <div><dt>Telemetry sent anywhere</dt><dd class="no">None</dd></div>
+            <div><dt>Source included</dt><dd>Yes, readable</dd></div>
+            <div><dt>Monthly fee</dt><dd class="no">None</dd></div>
+          </dl>
+        </div>
+      </section>
+
+      <section id="price">
+        <div class="shell">
+          <div class="head mid">
+            <span class="eyebrow">Price</span>
+            <h2>One copy, one operator, paid once</h2>
+            <p>
+              You are buying the software, not a subscription to somebody else's servers.
+              There are none to pay for.
+            </p>
+          </div>
+
+          <div class="price">
+            <div class="amount">Set your price</div>
+            <div class="per">one-time, per operator</div>
+            <ul>
+              <li>The full pipeline and its source</li>
+              <li>Runs on one computer, for your own accounts</li>
+              <li>Install check that tells you what is missing</li>
+              <li>No monthly fee and no usage metering</li>
+              <li>Updates while the licence lasts</li>
+            </ul>
+            <a class="btn btn-lg" href="#faq">Read the terms first</a>
+          </div>
+
+          <p class="fineprint centred-note">
+            The amount is deliberately blank. Nobody has sold a copy yet, so any number
+            printed here would be a guess dressed up as a price.
+          </p>
+        </div>
+      </section>
+
+      <section id="faq" class="tinted">
+        <div class="shell">
+          <div class="head mid">
+            <span class="eyebrow">FAQ</span>
+            <h2>The questions worth answering honestly</h2>
+          </div>
+
+          <div class="faq">
+            <details open>
+              <summary>What do I need to run it?</summary>
+              <p class="answer">
+                A computer that stays on, Node 24, ffmpeg and yt-dlp, and at least one
+                account you want to post to. The install check names anything missing and
+                tells you how to fix it before you waste an evening.
+              </p>
+            </details>
+            <details>
+              <summary>Does it really post without me?</summary>
+              <p class="answer">
+                Yes, within the caps you set. You can also leave posting switched off and
+                use it purely as a machine that finds and cuts moments, then post by hand.
+              </p>
+            </details>
+            <details>
+              <summary>Will this get my channel in trouble?</summary>
+              <p class="answer">
+                It posts through the platforms' own APIs with credentials you granted, one
+                account at a time, with no browser automation and nothing designed to look
+                human. Every clip credits the streamer and links to the source. Whether a
+                given streamer wants to be clipped is still a conversation you should have
+                with them.
+              </p>
+            </details>
+            <details>
+              <summary>Does it only work for one game?</summary>
+              <p class="answer">
+                No. It was built watching Grand Theft Auto VI because that is where the
+                audience was, but the channels and the game are settings. Anything on Twitch
+                with a busy chat works the same way.
+              </p>
+            </details>
+            <details>
+              <summary>Is it open source?</summary>
+              <p class="answer">
+                No, and the licence says so plainly. You get the source because the software
+                cannot run without it and you should be able to read what it does on your
+                machine. You may not redistribute it or run it as a service for other
+                people's accounts.
+              </p>
+            </details>
+            <details>
+              <summary>Does it guarantee views?</summary>
+              <p class="answer">
+                No, and anything that tells you otherwise is selling you something. It
+                guarantees that clips get made and posted every day without you. It also
+                ships the tool that measures whether its own choices predicted views, which
+                is the part most products in this category leave out.
+              </p>
+            </details>
+          </div>
+        </div>
+      </section>
+
+
+      <section id="demo">
+        <div class="shell">
+          <div class="block demo">
+            <video
+              src="demo.mp4"
+              poster="demo.jpg"
+              width="1080"
+              height="1920"
+              controls
+              playsinline
+              preload="none"
+            ></video>
+            <div class="demo-words">
+              <h2>The thirty-second version</h2>
+              <p>
+                Someone wanting to clip GTA&nbsp;6, and the thing being built in
+                front of them: pick the games, pick the channels, and it cuts
+                whichever of them chat reacts to.
+              </p>
+              <p class="setup-note">
+                Made by the tool's own renderer, so the dashboard in it is the
+                real layout. No streamer footage and nobody's face.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="get" class="tinted">
+        <div class="shell">
+          <div class="block">
+            <h2>Four steps, about twenty minutes</h2>
+            <p>
+              It is one Node project with no npm dependencies to install. The
+              longest part is making a Twitch application, which is a form on
+              their site and is free.
+            </p>
+
+            <ol class="setup">
+              <li>
+                <h3>Get the files</h3>
+                <p>
+                  <a class="dl" href="saturation-feed-source.zip" download>Download the source<span>ZIP &middot; 394 KB</span></a>
+                </p>
+                <p class="setup-note">
+                  Or read it first on
+                  <a href="https://github.com/allenwilk007-source/gta-6-clipping" rel="noopener noreferrer">GitHub</a>.
+                  Checksum: <a href="saturation-feed-source.zip.sha256">SHA-256</a>.
+                </p>
+              </li>
+              <li>
+                <h3>See what your machine is missing</h3>
+                <p>Unzip it, open a terminal in the folder, and run:</p>
+                <pre><code>npm run doctor</code></pre>
+                <p class="setup-note">
+                  It checks for Node 24, ffmpeg and yt-dlp, and tells you where
+                  to get whichever one you do not have. Nothing is downloaded
+                  behind your back.
+                </p>
+              </li>
+              <li>
+                <h3>Give it a Twitch key</h3>
+                <p>
+                  Copy <code>.env.example</code> to <code>.env</code>, then
+                  register an app at
+                  <a href="https://dev.twitch.tv/console/apps" rel="noopener noreferrer">dev.twitch.tv</a>
+                  and paste its client ID and secret in.
+                </p>
+                <p class="setup-note">
+                  Keys live in that file and nowhere else. Accounts to post to
+                  come later, from inside the dashboard &mdash; you can run the
+                  whole thing without connecting any.
+                </p>
+              </li>
+              <li>
+                <h3>Start it</h3>
+                <pre><code>npm start</code></pre>
+                <p class="setup-note">
+                  Then open <code>localhost:3000</code>. The dashboard answers
+                  on your own machine only; opening it to your network is a
+                  deliberate setting, and it will not do it without a password.
+                </p>
+              </li>
+            </ol>
+
+            <p class="get-note">
+              Stuck at any step, <code>RUNNING.md</code> is the long version and
+              <code>docs/posting-setup.md</code> covers connecting YouTube,
+              TikTok and Instagram. You get the source because the software
+              cannot run without it; what a licence does and does not allow is
+              in the <a href="terms.html">terms</a>.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="shell">
+          <div class="closing">
+            <h2>The stream is live right now</h2>
+            <p>
+              Open the dashboard, name a channel, and watch it find something before you have
+              finished reading this page.
+            </p>
+            <a class="btn btn-lg" href="#get">Get it</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="shell">
+        <span>Saturation Feed</span>
+        <a href="terms.html">Terms</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="#get">Dashboard</a>
+        <span class="spacer">Licensed per operator. Not affiliated with Twitch, YouTube, TikTok or Rockstar Games.</span>
+      </div>
+    </footer>
+  </body>
+</html>

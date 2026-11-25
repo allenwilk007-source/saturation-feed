@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Terms - Saturation Feed</title>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self' data:; style-src 'self'; media-src 'self'; font-src 'self'; base-uri 'none'; form-action 'none'" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <meta name="color-scheme" content="dark light" />
+    <link rel="icon" href="icon.svg" />
+    <link rel="stylesheet" href="doc.css" />
+  </head>
+  <body>
+    <main class="doc">
+      <a class="back" href="index.html">&larr; Saturation Feed</a>
+<h1>Terms of Service</h1>
+<p><strong>Last updated: 23 November 2026</strong></p>
+<p><strong>clip dashboard</strong> is licensed software that runs on its operator&#39;s own computer. It is not a hosted service: there is no server anybody else logs into, and each copy has no users other than the operator running it. The source is given to every licensee, because the thing cannot be configured or audited without it, but it is not open source — see <code>LICENSE</code>.</p>
+<p>These terms describe the basis on which it is provided. They sit alongside <code>LICENSE</code>, which says what a licence covers; where the two speak to the same thing, <code>LICENSE</code> governs what you may do with the software and this file governs what you are responsible for when you use it.</p>
+<h2>What it does</h2>
+<p>It watches public Twitch streams to find moments worth clipping, cuts short videos from them to local disk, and — once connected — reads the operator&#39;s own TikTok and YouTube account statistics and can send videos to the operator&#39;s own TikTok, YouTube and Instagram accounts.</p>
+<p>A TikTok upload arrives as a draft the operator posts themselves; YouTube and Instagram uploads are published directly.</p>
+<h2>No warranty</h2>
+<p>The software is provided <strong>as is, without warranty of any kind</strong>, express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose and non-infringement. The author is not liable for any claim, damages or other liability arising from the software or its use.</p>
+<p>Nothing about it is guaranteed to keep working. It depends on third-party APIs that may change or withdraw access at any time.</p>
+<h2>The operator is responsible for what they publish</h2>
+<p>This is the part that matters most, so it is stated plainly.</p>
+<p>The tool downloads sections of <strong>other people&#39;s</strong> public broadcasts and renders them into short videos. It does not acquire any rights in that footage, and it cannot grant any to the operator.</p>
+<p>The operator is solely responsible for:</p>
+<ul>
+<li>whether they have the right to publish a given clip;</li>
+<li>crediting the broadcaster, which the generated post text does by default;</li>
+<li>complying with Twitch&#39;s Terms of Service, and with the terms of any platform</li>
+</ul>
+<p>they publish to;</p>
+<ul>
+<li>any copyright claim, strike or dispute arising from what they post.</li>
+</ul>
+<p>The tool writes a credit line and a link back to the original stream into the text beside every clip. Removing them is the operator&#39;s choice and their responsibility.</p>
+<h2>Platform rules</h2>
+<p>Using this tool does not exempt anyone from the rules of the platforms it connects to. The operator must comply with TikTok&#39;s, YouTube&#39;s, Meta&#39;s and Twitch&#39;s terms, developer policies and community guidelines.</p>
+<p><strong>Posting</strong> happens <strong>only through the platforms&#39; official APIs</strong>, with credentials the account owner has granted. Nothing is ever posted by driving a website or an app.</p>
+<p><strong>Reading Twitch</strong> uses Twitch&#39;s API where credentials allow it, and otherwise reads pages and video that Twitch serves publicly: the channel page, to see whether someone is live, and <code>yt-dlp</code>, to fetch a VOD or a live stream to cut from. Those are not official APIs, and saying otherwise would be untrue.</p>
+<p>In no case does the tool disguise automated access as human activity, rotate accounts or addresses, use more than one account per platform, or attempt to work around any limit, block or review. It identifies itself by name when it asks Twitch for a page. That is a deliberate design boundary, not an oversight, and it is documented in <code>docs/detection-plan.md</code>.</p>
+<h2>Acceptable use</h2>
+<p>Do not use this software to harass anyone, to republish content you have no right to, to impersonate anyone, or to evade a platform&#39;s enforcement. If a platform tells you to stop, stop.</p>
+<h2>One copy, one operator</h2>
+<p>A licence covers one operator and the accounts that operator owns or is authorised to act for. Running it for other people&#39;s accounts as a service or an agency offering, or passing a copy to anyone else, needs a licence that says so in writing. <code>LICENSE</code> has the detail.</p>
+<h2>Changes</h2>
+<p>This file is version-controlled; its history is the change log.</p>
+<h2>Contact</h2>
+<p>Through the repository&#39;s issue tracker.</p>
+    </main>
+  </body>
+</html>

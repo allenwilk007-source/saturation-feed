@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Privacy - Saturation Feed</title>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self' data:; style-src 'self'; media-src 'self'; font-src 'self'; base-uri 'none'; form-action 'none'" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <meta name="color-scheme" content="dark light" />
+    <link rel="icon" href="icon.svg" />
+    <link rel="stylesheet" href="doc.css" />
+  </head>
+  <body>
+    <main class="doc">
+      <a class="back" href="index.html">&larr; Saturation Feed</a>
+<h1>Privacy Policy</h1>
+<p><strong>Last updated: 23 November 2026</strong></p>
+<p>This policy covers <strong>clip dashboard</strong>, licensed software that runs on its operator&#39;s own computer. It is not a hosted service, it has no servers, and no copy has any users other than the operator running it.</p>
+<p>If you are reading this because a platform&#39;s consent screen linked you here: the application you are about to authorise is the operator&#39;s own copy, running locally, requesting access to the operator&#39;s own account.</p>
+<h2>Who runs this</h2>
+<p>You do. Each copy is run by its own operator, on their own computer, against their own platform credentials. There is no shared infrastructure and no account anybody else signs into. The author of the software operates nothing, hosts nothing, and receives none of the data described below — not the clips, not the tokens, not the statistics, not a log that you ran it.</p>
+<p>Everything this file claims is checkable rather than merely promised: the source for every behaviour described below is handed to each licensee and can be read and audited. It is licensed rather than public, so the reader is the operator instead of anyone at all.</p>
+<h2>What it accesses, and why</h2>
+<p>With the operator&#39;s authorisation, it reads from the operator&#39;s <strong>own</strong> connected accounts:</p>
+<p>| Platform | What it reads | Why | | --- | --- | --- | | TikTok | Profile basics (open id, avatar, display name), account statistics (followers, following, likes, video count), and the list of the operator&#39;s own public videos with their view, like and comment counts | To show the operator how their own posts are performing | | TikTok | — | With <code>video.upload</code>, it sends a video to the operator&#39;s own TikTok inbox <strong>as a draft</strong>, for the operator to review and post themselves | | YouTube | The operator&#39;s own channel totals and their own videos&#39; statistics; uploads to the operator&#39;s own channel | The same, for YouTube | | Instagram | The list of Facebook Pages the operator administers, and the id and username of the Instagram professional account linked to one of them | To know which account to post to. Instagram&#39;s API reaches a professional account through its linked Page; there is no other route that can post a file from this computer | | Instagram | — | With <code>instagram_content_publish</code>, it uploads a video as a Reel to that account, with a caption | | Twitch | Public stream and clip metadata, and public chat messages in public channels | To find moments worth clipping |</p>
+<p>It does <strong>not</strong> request access to anyone else&#39;s account, to direct messages, to contacts, to followers&#39; identities, or to anything private.</p>
+<h2>Where that data goes</h2>
+<p><strong>Nowhere.</strong> It stays on the operator&#39;s computer, in a local SQLite database and in files on disk.</p>
+<p>The dashboard that reads it answers only on the operator&#39;s own machine. It can be opened to a local network deliberately, by setting <code>HOST</code>, and doing so requires a dashboard password: it will not start as an open page on a network.</p>
+<p>There is no backend. Nothing is uploaded to a server belonging to this project, because no such server exists. There is no analytics, no telemetry, no crash reporting, no advertising, and no third-party SDK of any kind.</p>
+<p>Data is not sold, rented, shared or disclosed to anyone, because there is nobody to disclose it to.</p>
+<p>The only network connections it makes are directly to the platforms named above and to the APIs it has been authorised to use. In full, that is: <code>twitch.tv</code> and its media hosts (<code>*.ttvnw.net</code>), <code>googleapis.com</code> and <code>accounts.google.com</code>, <code>tiktok.com</code>, and <code>facebook.com</code> and its Instagram endpoints.</p>
+<p>Some of those are made on a timer rather than on a click: while it is watching, it polls Twitch for who is live, and while it is recording a channel it fetches that stream continuously. Nothing is sent anywhere by either.</p>
+<h2>Access tokens</h2>
+<p>Authorising an account gives this tool a token. Tokens are written to files on the operator&#39;s own disk, and are used only to make the API calls described above.</p>
+<p>Those files are created owner-only. On Linux and macOS that is enforced by the filesystem. <strong>On Windows it is not:</strong> the operating system takes its permissions from the containing folder, so the token is readable by anything running as that user. The file sits in the account&#39;s own profile, which is the same protection the browser&#39;s saved passwords have, and no more.</p>
+<p>Tokens are never transmitted anywhere except back to the platform that issued them.</p>
+<h2>Twitch clips and other people&#39;s content</h2>
+<p>The tool downloads sections of public Twitch broadcasts and renders them as short videos on local disk. Those are recordings of other people&#39;s streams. The operator is responsible for what they do with them, including whether and where they publish them, and for complying with the rights of the broadcasters concerned. See TERMS.md.</p>
+<p>Public chat messages are read to measure how much chat is reacting. Message text is summarised into counts and then discarded; raw chat text is not stored.</p>
+<h2>Retention and deletion</h2>
+<p>Everything lives in the project folder on the operator&#39;s computer.</p>
+<ul>
+<li><strong>Shorts:</strong> a short the operator has not downloaded is deleted from</li>
+</ul>
+<p><code>clips/ready</code> 6 hours after it was made (<code>SHORTS_KEEP_HOURS</code>). Downloaded shorts stay until the operator deletes them.</p>
+<ul>
+<li><strong>To delete the collected data:</strong> delete the <code>data/</code> and <code>clips/</code> folders.</li>
+<li><strong>To revoke access:</strong> disconnect the app in the platform&#39;s own settings</li>
+</ul>
+<p>(TikTok: Settings → Security and permissions → Manage app permissions; Google: myaccount.google.com → Data and privacy → Third-party apps; Instagram and Facebook: facebook.com → Settings → Business integrations), and delete the token files in <code>data/</code>.</p>
+<p>Revoking on the platform side immediately stops this tool from being able to read anything, whether or not the local files are deleted.</p>
+<h2>Children</h2>
+<p>This is a tool for managing an adult&#39;s own content accounts. It is not directed at children and collects nothing from them.</p>
+<h2>Changes</h2>
+<p>This file is version-controlled in the repository linked above; its history is the change log.</p>
+<h2>Contact</h2>
+<p>Through the repository&#39;s issue tracker: &lt;https://github.com/allenwilk007-source/clipper_tvv/issues&gt;</p>
+    </main>
+  </body>
+</html>
