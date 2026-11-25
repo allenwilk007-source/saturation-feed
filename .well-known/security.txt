@@ -1,0 +1,11 @@
+# Found something? Open a private advisory and it reaches the maintainer
+# without being public first.
+Contact: https://github.com/allenwilk007-source/gta-6-clipping/security/advisories/new
+Expires: 2027-11-25T07:52:28Z
+Preferred-Languages: en
+Canonical: https://allenwilk007-source.github.io/saturation-feed/.well-known/security.txt
+
+# What is worth reporting: anything that lets a page the operator visits,
+# or a machine on their network, reach the dashboard or the accounts it
+# posts to. The dashboard answers on localhost only unless the operator
+# sets HOST or DASHBOARD_HOSTS, and both of those require a password.
