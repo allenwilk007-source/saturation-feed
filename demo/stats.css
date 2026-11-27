@@ -1,0 +1,223 @@
+/* The stats dashboard. Inherits the feed's tokens from style.css; everything
+   here is layout for a page the feed does not have. */
+
+.bar-right {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.back-link {
+  color: var(--muted);
+  font-size: 13px;
+  text-decoration: none;
+}
+
+.back-link:hover {
+  color: var(--text);
+}
+
+.refresh-btn {
+  padding: 7px 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel-2);
+  color: var(--text);
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.refresh-btn:hover:not(:disabled) {
+  border-color: var(--accent);
+}
+
+.refresh-btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.stats-main {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 16px 20px 48px;
+}
+
+.platform {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--panel);
+  overflow: hidden;
+}
+
+.platform.is-pending {
+  opacity: 0.72;
+}
+
+.platform-head {
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--line);
+}
+
+.platform-head h2 {
+  margin: 0;
+  font-size: 15px;
+  color: var(--text);
+}
+
+.platform-state {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.platform-body {
+  padding: 16px;
+}
+
+.pending-note {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.pending-note b {
+  color: var(--text);
+}
+
+.channel {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.channel-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+}
+
+.channel-name {
+  color: var(--text);
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.totals {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.totals div {
+  flex: 1 1 140px;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--panel-2);
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.totals b {
+  display: block;
+  margin-bottom: 2px;
+  color: var(--text);
+  font-size: 20px;
+  font-variant-numeric: tabular-nums;
+}
+
+.videos {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.video {
+  display: grid;
+  grid-template-columns: 84px 1fr auto;
+  gap: 14px;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--panel-2);
+}
+
+.video-thumb {
+  display: block;
+  overflow: hidden;
+  border-radius: 6px;
+  aspect-ratio: 16 / 9;
+  background: var(--sunken);
+}
+
+.video-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.video-title {
+  display: block;
+  color: var(--text);
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.video-title:hover {
+  color: var(--accent-ink);
+}
+
+.video-meta {
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.video-numbers {
+  display: flex;
+  gap: 18px;
+  text-align: right;
+}
+
+.video-numbers span {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.video-numbers b {
+  display: block;
+  color: var(--text);
+  font-size: 15px;
+  font-variant-numeric: tabular-nums;
+}
+
+.connect {
+  display: inline-block;
+  margin-top: 6px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  background: var(--accent);
+  color: var(--on-accent);
+  font-size: 13px;
+  text-decoration: none;
+}
+
+@media (max-width: 560px) {
+  .video {
+    grid-template-columns: 64px 1fr;
+  }
+
+  .video-numbers {
+    grid-column: 1 / -1;
+    justify-content: flex-start;
+    gap: 22px;
+  }
+}

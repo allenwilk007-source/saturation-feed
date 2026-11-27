@@ -476,6 +476,42 @@ footer .spacer { margin-left: auto; }
    caption for something the reader has not seen yet. */
 .tour-lede { max-width: 62ch; }
 
+/* The way in to the playable copy. It sits under the lede rather than at the
+   bottom of the tour, because somebody who wants to press things wants to
+   press them before reading three captions. */
+.tour-try-lede {
+  max-width: 62ch;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 10px 14px;
+  margin-top: 18px;
+}
+
+.tour-try-lede > span {
+  flex: 1 1 24ch;
+  min-width: 0;
+  font-size: 0.93em;
+  opacity: 0.82;
+}
+
+a.tour-try {
+  flex: 0 0 auto;
+  padding: 9px 16px;
+  border-radius: 999px;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  background: var(--accent, #6d4aff);
+  color: #fff;
+}
+
+a.tour-try:hover,
+a.tour-try:focus-visible {
+  filter: brightness(1.08);
+  text-decoration: none;
+}
+
 .tour-shot {
   margin: 30px 0 0;
   display: grid;

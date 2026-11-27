@@ -1,0 +1,20 @@
+<!--
+  The mark: three bars falling away, which is what the product measures. A
+  moment goes from early, to fresh, to flooded, and the three colours here are
+  the page's own accent, early and fresh tokens, so the tab and the header
+  agree with the thing they label.
+
+  Same drawing as clips/app-icon.png, which stays because app stores want a
+  1024px raster with padding around it. Here the viewBox is cropped to the
+  bars, so the mark fills whatever size it is given rather than being a small
+  shape adrift in a large empty square.
+
+  Do not name the CSS variables in this comment. An XML comment may not
+  contain a double hyphen, so writing them out makes this file fail to parse
+  and the img silently renders nothing.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="232 306 560 410" role="img" aria-label="Saturation Feed">
+  <rect x="232" y="306" width="560" height="104" fill="#8a63f4" />
+  <rect x="232" y="458" width="400" height="104" fill="#4db8ff" />
+  <rect x="232" y="612" width="232" height="104" fill="#35d07f" />
+</svg>

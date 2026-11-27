@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Saturation Feed — try the dashboard</title>
+    <link rel="icon" href="icon.svg" />
+    <link rel="apple-touch-icon" href="icon.png" />
+    <script src="theme.js"></script>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="stats.css" />
+    <link rel="stylesheet" href="queue.css" />
+  
+    <style>
+      .demo-bar {
+        position: sticky;
+        top: 0;
+        z-index: 40;
+        padding: 10px 16px;
+        background: #1f2937;
+        color: #e5e7eb;
+        font-size: 13px;
+        line-height: 1.5;
+        border-bottom: 1px solid #374151;
+      }
+      .demo-bar strong { color: #fff; }
+      .demo-bar a { color: #93c5fd; white-space: nowrap; }
+      .demo-note {
+        position: fixed;
+        left: 50%;
+        bottom: 24px;
+        transform: translateX(-50%);
+        z-index: 60;
+        max-width: min(420px, calc(100vw - 32px));
+        padding: 10px 14px;
+        border-radius: 10px;
+        background: #111827;
+        color: #f9fafb;
+        font-size: 13px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+      }
+      @media (prefers-reduced-motion: no-preference) {
+        .demo-note { transition: opacity 160ms ease; }
+      }
+    </style>
+    <script src="offline.js"></script>
+  </head>
+  <body>
+
+    <div class="demo-bar">
+      <strong>This is a demo.</strong> Every number on this page is made up and
+      the channels are invented &mdash; there is no account behind it and
+      nothing you press here reaches a real service. The switches do work:
+      change them and the page changes. The real thing runs on your own
+      computer.
+      <a href="../">Back to Saturation Feed</a>
+    </div>
+
+    <header class="bar">
+      <div class="bar-left">
+        <h1><img class="mark" src="icon.svg" alt="" width="20" height="15" />Saturation&nbsp;Feed</h1>
+        <span class="game" id="game">connecting…</span>
+      </div>
+      <div class="bar-right" id="outcome"></div>
+      <nav class="bar-links">
+        <a href="#" data-demo-off="youtube.html">YouTube</a>
+        <a href="#" data-demo-off="tiktok.html">TikTok</a>
+        <a href="#" data-demo-off="instagram.html">Instagram</a>
+        <button class="theme" id="theme" type="button">Dark</button>
+      </nav>
+    </header>
+
+    <nav class="controls">
+      <div class="chips" id="filters">
+        <button class="chip is-on" data-filter="all">All</button>
+        <button class="chip" data-filter="early">Early</button>
+        <button class="chip" data-filter="fresh">Fresh</button>
+        <button class="chip" data-filter="warm">Warm</button>
+        <button class="chip" data-filter="flooded">Flooded</button>
+      </div>
+      <div class="controls-right">
+        <label class="toggle" title="Also render a 9:16 copy for Shorts/TikTok">
+          <input type="checkbox" id="vertical" />
+          9:16 copy
+        </label>
+        <label class="sort">
+          Sort
+          <select id="sort">
+            <option value="opportunity">Opportunity</option>
+            <option value="newest">Newest</option>
+            <option value="saturation">Most clipped</option>
+            <option value="chat">Chat spike</option>
+          </select>
+        </label>
+      </div>
+    </nav>
+
+    <div class="mode-banner" id="mode" hidden></div>
+
+    <!--
+      Shown until the three things that have to happen once have happened, and
+      never again. A first run used to open on three empty platform columns
+      and a feed of moments, with nothing anywhere saying what to do with any
+      of it.
+    -->
+    <section class="start" id="start" hidden>
+      <h2>Three things, once</h2>
+      <ol class="start-steps" id="start-steps"></ol>
+    </section>
+
+    <section class="auto" id="auto" hidden>
+      <div class="auto-head">
+        <div>
+          <h2>Channel automation</h2>
+          <p class="auto-sub">
+            Every time one of these channels has a moment, it is cut, captioned
+            and rendered as a 9:16 short. Nothing is posted for you.
+          </p>
+        </div>
+        <label class="switch">
+          <input type="checkbox" id="auto-enabled" />
+          <span class="switch-track" aria-hidden="true"><span class="switch-thumb"></span></span>
+          <span class="switch-label" id="auto-enabled-label">Off</span>
+        </label>
+      </div>
+      <!--
+        What and who, side by side and both editable. The category list used to
+        be a sentence printed from the environment: changing what this clipped
+        meant editing .env and restarting the server, which is not a setting so
+        much as a rebuild.
+      -->
+      <div class="picker">
+        <section class="pick">
+          <h3 class="pick-head">What to clip</h3>
+          <p class="pick-note">Twitch categories. Every live channel in these is watched.</p>
+          <div class="auto-channels" id="auto-games"></div>
+          <form class="auto-add" id="game-add">
+            <input
+              id="game-add-input"
+              type="text"
+              placeholder="Add a game: Fortnite"
+              autocomplete="off"
+            />
+            <button type="submit">Add game</button>
+          </form>
+        </section>
+        <section class="pick">
+          <h3 class="pick-head">Who to clip</h3>
+          <p class="pick-note">Channels automation cuts from, inside those categories.</p>
+          <div class="auto-channels" id="auto-channels"></div>
+          <form class="auto-add" id="auto-add">
+            <input
+              id="auto-add-input"
+              type="text"
+              placeholder="Add a channel: name or twitch.tv link"
+              autocomplete="off"
+              spellcheck="false"
+            />
+            <button type="submit">Add channel</button>
+          </form>
+        </section>
+      </div>
+      <p class="auto-error" id="auto-error" hidden></p>
+
+      <div class="auto-options">
+        <label class="switch switch-small" title="Mix a track from the music folder quietly under each new short">
+          <input type="checkbox" id="auto-music" />
+          <span class="switch-track" aria-hidden="true"><span class="switch-thumb"></span></span>
+          <span class="switch-label">Background music</span>
+        </label>
+        <span class="auto-music-note" id="auto-music-note"></span>
+        <label class="auto-scope" id="auto-scope-wrap" hidden>
+          Clip from
+          <select id="auto-scope">
+            <option value="channels">my channels</option>
+            <option value="category">every live channel in these games</option>
+          </select>
+        </label>
+      </div>
+      <p class="auto-status" id="auto-status"></p>
+      <div class="uploads" id="uploads" hidden>
+        <div class="uploads-head">
+          <strong class="uploads-title">Auto upload</strong>
+          <p class="uploads-sub">
+            Where each finished short goes. One card per account: whether it is
+            connected, what it is allowed to do, and what it has done so far.
+          </p>
+        </div>
+        <div class="up-grid">
+          <section class="up-card" id="up-youtube">
+            <div class="up-top">
+              <h3 class="up-name">YouTube</h3>
+              <span class="up-pill" id="yt-pill">
+                <span class="up-dot" aria-hidden="true"></span>
+                <span class="up-pill-text">Checking…</span>
+              </span>
+            </div>
+            <p class="up-account" id="yt-account" hidden></p>
+            <div class="up-controls">
+              <label class="up-mode">
+                <span>Mode</span>
+                <select id="yt-mode">
+                  <option value="off">Off</option>
+                  <option value="dry-run">Dry run (log only)</option>
+                  <option value="on">On: upload</option>
+                </select>
+              </label>
+              <a class="up-connect" id="yt-connect" href="#" data-demo-off="auth/youtube">Connect</a>
+            </div>
+            <div class="up-limits">
+              <label>
+                <span>Per day</span>
+                <input id="yt-perday" type="number" inputmode="numeric" min="1" step="1" aria-describedby="yt-status" />
+              </label>
+              <label>
+                <span>Minutes apart</span>
+                <input id="yt-spacing" type="number" inputmode="numeric" min="1" max="1440" step="10" aria-describedby="yt-status" />
+              </label>
+            </div>
+            <dl class="up-stats" id="yt-stats"></dl>
+            <p class="uploads-status" id="yt-status"></p>
+            <ol class="uploads-list" id="yt-next"></ol>
+            <a class="up-more" href="#" data-demo-off="youtube.html">Open YouTube stats</a>
+          </section>
+          <section class="up-card" id="up-tiktok">
+            <div class="up-top">
+              <h3 class="up-name">TikTok</h3>
+              <span class="up-pill" id="tt-pill">
+                <span class="up-dot" aria-hidden="true"></span>
+                <span class="up-pill-text">Checking…</span>
+              </span>
+            </div>
+            <p class="up-account" id="tt-account" hidden></p>
+            <div class="up-controls">
+              <label class="up-mode">
+                <span>Mode</span>
+                <select id="tt-mode">
+                  <option value="off">Off</option>
+                  <option value="dry-run">Dry run (log only)</option>
+                  <option value="on">On: send drafts</option>
+                </select>
+              </label>
+              <a class="up-connect" id="tt-connect" href="#" data-demo-off="auth/tiktok">Connect</a>
+            </div>
+            <div class="up-limits">
+              <label>
+                <span>Per day</span>
+                <input id="tt-perday" type="number" inputmode="numeric" min="1" step="1" aria-describedby="tt-status" />
+              </label>
+              <label>
+                <span>Minutes apart</span>
+                <input id="tt-spacing" type="number" inputmode="numeric" min="1" max="1440" step="10" aria-describedby="tt-status" />
+              </label>
+            </div>
+            <dl class="up-stats" id="tt-stats"></dl>
+            <p class="uploads-status" id="tt-status"></p>
+            <ol class="uploads-list" id="tt-next"></ol>
+            <a class="up-more" href="#" data-demo-off="tiktok.html">Open TikTok stats</a>
+          </section>
+          <section class="up-card" id="up-instagram">
+            <div class="up-top">
+              <h3 class="up-name">Instagram</h3>
+              <span class="up-pill" id="ig-pill">
+                <span class="up-dot" aria-hidden="true"></span>
+                <span class="up-pill-text">Checking…</span>
+              </span>
+            </div>
+            <p class="up-account" id="ig-account" hidden></p>
+            <div class="up-controls">
+              <label class="up-mode">
+                <span>Mode</span>
+                <select id="ig-mode">
+                  <option value="off">Off</option>
+                  <option value="dry-run">Dry run (log only)</option>
+                  <option value="on">On: upload</option>
+                </select>
+              </label>
+              <a class="up-connect" id="ig-connect" href="#" data-demo-off="auth/instagram">Connect</a>
+            </div>
+            <div class="up-limits">
+              <label>
+                <span>Per day</span>
+                <input id="ig-perday" type="number" inputmode="numeric" min="1" step="1" aria-describedby="ig-status" />
+              </label>
+              <label>
+                <span>Minutes apart</span>
+                <input id="ig-spacing" type="number" inputmode="numeric" min="1" max="1440" step="10" aria-describedby="ig-status" />
+              </label>
+            </div>
+            <dl class="up-stats" id="ig-stats"></dl>
+            <p class="uploads-status" id="ig-status"></p>
+            <ol class="uploads-list" id="ig-next"></ol>
+            <a class="up-more" href="#" data-demo-off="instagram.html">Open Instagram stats</a>
+          </section>
+        </div>
+      </div>
+      <div class="shorts" id="shorts"></div>
+    </section>
+
+    <!--
+      What goes out next, on every platform at once. The per-account pages
+      each show their own; this is the whole schedule in one place, beside the
+      shorts it is drawn from.
+    -->
+    <section class="schedule">
+      <h2 class="schedule-head">Going out next</h2>
+      <p class="queue-caveat">
+        Projections, not promises. They follow the same cap and spacing rules the
+        uploader actually applies — but a better-scoring short landing, a refusal,
+        or switching a platform off all move them.
+      </p>
+      <p class="queue-caveat is-off" id="queue-off-note" hidden></p>
+      <p class="queue-caveat" id="queue-empty-note" hidden></p>
+      <div class="schedule-grid">
+        <div class="platform" id="youtube">
+          <div class="platform-head">
+            <h3><a href="#" data-demo-off="youtube.html">YouTube</a></h3>
+            <span class="platform-state" id="youtube-state"></span>
+          </div>
+          <div class="platform-body" id="youtube-body"></div>
+        </div>
+        <div class="platform" id="tiktok">
+          <div class="platform-head">
+            <h3><a href="#" data-demo-off="tiktok.html">TikTok</a></h3>
+            <span class="platform-state" id="tiktok-state"></span>
+          </div>
+          <div class="platform-body" id="tiktok-body"></div>
+        </div>
+        <div class="platform" id="instagram">
+          <div class="platform-head">
+            <h3><a href="#" data-demo-off="instagram.html">Instagram</a></h3>
+            <span class="platform-state" id="instagram-state"></span>
+          </div>
+          <div class="platform-body" id="instagram-body"></div>
+        </div>
+      </div>
+    </section>
+
+    <!--
+      The saturation scale describes the feed underneath it, so it lives with
+      the feed. In the product header it was answering "how is the scanner
+      doing?" to someone who came to ask "is my channel getting anything out?"
+    -->
+    <div class="feed-head">
+      <h2>Live moments</h2>
+      <div class="feed-stats" id="stats"></div>
+    </div>
+
+    <main id="feed" class="feed"></main>
+
+    <template id="short-template">
+      <article class="short">
+        <div class="short-frame"></div>
+        <div class="short-body">
+          <p class="short-caption"></p>
+          <p class="short-meta"></p>
+          <div class="short-meter" hidden>
+            <div class="meter-bar"><span class="meter-fill"></span></div>
+            <span class="meter-text"></span>
+          </div>
+          <div class="short-post" aria-label="Post this short">
+            <button type="button" class="post-btn" data-platform="tiktok">TikTok</button>
+            <button type="button" class="post-btn" data-platform="youtube">YouTube</button>
+            <button type="button" class="post-btn" data-platform="instagram">Instagram</button>
+          </div>
+          <p class="short-hint" hidden></p>
+          <div class="short-actions">
+            <button type="button" class="short-copy">Copy post text</button>
+            <a class="short-download" download>Download</a>
+          </div>
+        </div>
+      </article>
+    </template>
+
+    <template id="card-template">
+      <article class="card">
+        <div class="sat">
+          <span class="sat-count"></span>
+          <span class="sat-label">clippers</span>
+        </div>
+        <div class="body">
+          <div class="row-top">
+            <span class="state"></span>
+            <a class="broadcaster" target="_blank" rel="noopener"></a>
+            <span class="new-clips"></span>
+          </div>
+          <p class="title"></p>
+          <div class="meta"></div>
+          <div class="chat-evidence" hidden></div>
+          <div class="clip-status" hidden></div>
+        </div>
+        <div class="actions">
+          <a class="open" target="_blank" rel="noopener">Open at moment</a>
+          <button class="clip" type="button">Clip it</button>
+        </div>
+      </article>
+    </template>
+
+    <script src="app.js" type="module"></script>
+    <script src="queue.js" type="module"></script>
+  </body>
+</html>
